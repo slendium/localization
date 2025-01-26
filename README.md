@@ -15,7 +15,7 @@ class Product {
   public Localizable $name;
 }
 ```
-Now consider the following class for generating an outgoing e-mail. Imagine `EmailGenerator` is a template class provided by a framework which returns an intermediate representation of the structure of the e-mail to be sent. The framework will later convert this structure to the actual text to be sent, using a localization algorithm of its own choosing. The implementor of this API does not have to worry about the specifics of localizing this e-mail, but can focus instead on its general structure.
+Now consider the following class for generating an outgoing e-mail. Imagine `EmailGenerator` is a template class provided by a framework which returns an intermediate representation of the structure of the e-mail to be sent. The framework will later convert this structure to the actual text to be sent, using a localization algorithm of its own choosing. The implementor of this API does not have to worry about the specifics of localizing this e-mail, but can focus instead on its general structure. From their perspective it does not matter whether the text comes from a static dictionary, a database object or even an external source.
 ```PHP
 class OrderEmailGenerator extends EmailGenerator {
 
