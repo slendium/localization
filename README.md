@@ -46,4 +46,4 @@ Work in progress.
 Work in progress.
 
 ## Pluralization
-Work in progress.
+Pluralization has been left out of this standard, but may be added later if a good case can be made.
