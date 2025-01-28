@@ -1,0 +1,21 @@
+{
+    "name": "slendium/localization",
+    "description": "A Slendium recommendation on handling localization across libraries and frameworks.",
+    "type": "library",
+    "require-dev": {
+        "phpstan/phpstan": "^2.1"
+    },
+    "license": "MIT License",
+    "autoload": {
+        "psr-4": {
+            "Slendium\\Localization\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "C. Fahner",
+            "email": "cfahner.git.ixuk9phi@slendium.org"
+        }
+    ],
+    "require": {}
+}
