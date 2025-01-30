@@ -1,0 +1,10 @@
+parameters:
+	level: 10
+	phpVersion: 80400
+	bootstrapFiles:
+		- vendor/autoload.php
+	paths:
+		- src
+	excludePaths:
+		analyse:
+			- vendor
