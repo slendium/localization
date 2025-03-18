@@ -2,7 +2,8 @@
 
 namespace Slendium\Localization;
 
-use ArrayAccess, Closure, IteratorAggregate;
+use ArrayAccess;
+use IteratorAggregate;
 
 /**
  * Provides access to the localized variants of an item.
@@ -25,26 +26,26 @@ interface Localizable extends ArrayAccess, IteratorAggregate {
 	/**
 	 * Applies a filter to the localizable.
 	 * @since 1.0
-	 * @param Closure(T,string $locale):bool $filter The filter function to apply
+	 * @param callable(T,string $locale):bool $filter The filter function to apply
 	 * @return self<T> A new localizable that will only return a value that passes the given filter
 	 */
-	public function filter(Closure $filter): self;
+	public function filter(callable $filter): self;
 
 	/**
 	 * Applies a transformation to this localizable.
 	 * <p>The transformation function is only called for the value that was found.</p>
 	 * @since 1.0
 	 * @template TOut
-	 * @param Closure(T,string $locale):TOut $transform The transform function to apply
+	 * @param callable(T,string $locale):TOut $transform The transform function to apply
 	 * @return self<TOut> A new localizable that will result in the transformed value
 	 */
-	public function transform(Closure $transform): self;
+	public function transform(callable $transform): self;
 
 	/**
 	 * Sets the `$fallback` property.
 	 * @since 1.0
 	 * @param mixed $fallback The fallback value to use if a lookup fails
-	 * @return self<T> A new localizable that uses the given fallback
+	 * @return self<T> A localizable that uses the given fallback
 	 */
 	public function withFallback(mixed $fallback): self;
 
