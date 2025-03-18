@@ -47,12 +47,4 @@ interface Locale extends Stringable {
 	 */
 	public array $variants { get; }
 
-	/**
-	 * The keywords of the locale, if any.
-	 * @since 1.0
-	 * @see https://www.php.net/manual/en/locale.getkeywords.php
-	 * @var array<non-empty-string,non-empty-string>
-	 */
-	public array $keywords { get; }
-
 }
