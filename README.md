@@ -1,10 +1,10 @@
 # Localization
-An implementation-agnostic standard for localization in PHP. It is intended to facilitate the exchange of localizable information between PHP frameworks and libraries. The primary motivation for creating this standard is to provide common interfaces for other Slendium libraries, so it will be biased towards these use-cases. Suggestions are always welcome.
+An implementation-agnostic standard for localization in PHP. It is intended to facilitate the exchange of localizable information between PHP frameworks and libraries. The primary motivation for creating this standard is to provide common interfaces for other Slendium libraries, so it will be biased towards these use-cases.
 
 Requires PHP 8.4+ and assumes the same standards that PHP uses natively ([RFC 4646, CLDR](https://www.php.net/manual/en/class.locale.php)). It also assumes use of a static analyzer such as [PHPStan](https://phpstan.org/).
 
 ## The problem
-There are different ways of doing localization in PHP (array dictionaries, [gettext](https://www.php.net/manual/en/book.gettext.php), framework-specific implementations, etc.). Sometimes end-users can enter their own translations on a per-object basis - for example, using a database table. Code that is responsible for producing a locale-specific output (such as an HTML page, a JSON object, a PDF, an e-mail, etc.), or other libraries that want to work with localizable objects, should not become dependent on the underlying dictionary implementation of such objects. Common interfaces prevent this dependency.
+There are different ways of doing localization in PHP (array dictionaries, [gettext](https://www.php.net/manual/en/book.gettext.php), framework-specific implementations, etc.). Sometimes end-users can enter their own translations on a per-object basis - for example, using a database table. Code that is responsible for producing a locale-specific output (such as an HTML page, a JSON object, a PDF, an e-mail, etc.), or other libraries that want to work with localizable objects, should not need to know about the underlying dictionary implementation of such objects.
 
 ## Example of a basic use-case
 Consider the following application-specific object which has a `$name` property that should change based on the current locale.
@@ -39,11 +39,5 @@ class OrderEmailGenerator extends EmailGenerator {
 }
 ```
 
-## Post-processing
-Work in progress.
-
-## Fallback values
-Work in progress.
-
 ## Pluralization
-Pluralization has been left out of this standard, but may be added later if a good case can be made.
+Pluralization is not a part of this library.
