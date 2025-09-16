@@ -1,5 +1,5 @@
 # Localization
-An implementation-agnostic standard for localization in PHP. It is intended to facilitate the exchange of localizable information between PHP frameworks and libraries. The primary motivation for creating this standard is to provide common interfaces for other Slendium libraries, so it will be biased towards these use-cases.
+An implementation-agnostic library for localization in PHP. It is intended to facilitate the exchange of localizable information between PHP frameworks and libraries. The primary motivation for creating this standard is to provide common interfaces for other Slendium libraries, so it will be biased towards these use-cases.
 
 Requires PHP 8.4+ and assumes the same standards that PHP uses natively ([RFC 4646, CLDR](https://www.php.net/manual/en/class.locale.php)). It also assumes use of a static analyzer such as [PHPStan](https://phpstan.org/).
 
