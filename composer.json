@@ -1,16 +1,14 @@
 {
 	"name": "slendium/localization",
-	"description": "A Slendium recommendation on handling localization across libraries and frameworks.",
+	"description": "A Slendium library handling localization.",
 	"type": "library",
 	"require-dev": {
-		"phpstan/phpstan": "^2.1"
+		"phpstan/phpstan": "^2.1",
+		"phpunit/phpunit": "^12"
 	},
 	"license": "MIT",
-	"autoload": {
-		"psr-4": {
-			"Slendium\\Localization\\": "src/"
-		}
-	},
+	"autoload": { "psr-4": { "Slendium\\Localization\\": "src/" } },
+	"autoload-dev": { "psr-4": { "Slendium\\LocalizationTests\\": "tests/" } },
 	"authors": [
 		{
 			"name": "C. Fahner",
