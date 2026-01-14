@@ -1,22 +1,28 @@
 # Localization
-An implementation-agnostic library for localization in PHP. It is intended to facilitate the exchange of localizable information between PHP frameworks and libraries. The primary motivation for creating this standard is to provide common interfaces for other Slendium libraries, so it will be biased towards these use-cases.
 
-Requires PHP 8.4+ and assumes the same standards that PHP uses natively ([RFC 4646, CLDR](https://www.php.net/manual/en/class.locale.php)). It also assumes use of a static analyzer such as [PHPStan](https://phpstan.org/).
+A framework-agnostic PHP library for localization. Includes:
 
-## The problem
-There are different ways of doing localization in PHP (array dictionaries, [gettext](https://www.php.net/manual/en/book.gettext.php), framework-specific implementations, etc.). Sometimes end-users can enter their own translations on a per-object basis - for example, using a database table. Code that is responsible for producing a locale-specific output (such as an HTML page, a JSON object, a PDF, an e-mail, etc.), or other libraries that want to work with localizable objects, should not need to know about the underlying dictionary implementation of such objects.
+* PHPDocs with type hints for static analyzers
+* Works with PHP-native standards ([RFC 4646, CLDR](https://www.php.net/manual/en/class.locale.php))
 
-## Example of a basic use-case
-Consider the following application-specific object which has a `$name` property that should change based on the current locale.
+## Installation
 
-```PHP
+Requires **PHP >= 8.4**. Simply run `composer install slendium/localization` to add it to your project.
+
+## Example
+
+Create a domain-specific object with a translatable `$name` property.
+
+```php
 class Product {
   /** @var Localizable<non-empty-string> */
   public Localizable $name;
 }
 ```
-Now consider the following class for generating an outgoing e-mail. Imagine `EmailGenerator` is a template class provided by a framework which returns an intermediate representation of the structure of the e-mail to be sent. The framework will later convert this structure to the actual text to be sent, using a localization algorithm of its own choosing. The implementor of this API does not have to worry about the specifics of localizing this e-mail, but can focus instead on its general structure. From their perspective it does not matter whether the text comes from a static dictionary, a database object or even an external source.
-```PHP
+
+Now consume this object in an `EmailGenerator` template.
+
+```php
 class OrderEmailGenerator extends EmailGenerator {
 
   public function __construct(
@@ -31,7 +37,7 @@ class OrderEmailGenerator extends EmailGenerator {
     yield $this->translate('thanks_for_ordering'); // a Localizable from a static dictionary
     yield from [ '<table><tr><th>', $this->translate('product_category'), '</th></tr>' ];
     foreach ($this->products as $product) {
-      yield from [ '<tr><td>', $product->name, '</td></tr>' ];
+      yield from [ '<tr><td>', $product->name, '</td></tr>' ]; // $product->name is a localizable
     }
     yield '</table>';
     yield $this->getSignature(); // another localizable
@@ -39,5 +45,16 @@ class OrderEmailGenerator extends EmailGenerator {
 }
 ```
 
-## Pluralization
-Pluralization is not a part of this library.
+The email generator can simply return a mix of markup and localizables to be converted to their
+translated equivalents at a later stage.
+
+## Motivation
+
+There are different ways of doing localization in PHP (array dictionaries, [gettext](https://www.php.net/manual/en/book.gettext.php),
+framework-specific implementations, etc.). Sometimes end-users can enter their own translations on a
+per-object basis - for example, using a database table. Code that is responsible for producing a
+locale-specific output (such as an HTML page, a JSON object, a PDF, an e-mail, etc.), or other libraries
+that want to work with localizable objects, should not need to know about the underlying dictionary
+implementation of such objects.
+
+Pluralization is not part of this library, for now.
