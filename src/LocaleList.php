@@ -2,10 +2,13 @@
 
 namespace Slendium\Localization;
 
-use ArrayAccess, Countable, IteratorAggregate;
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 
 /**
  * An ordered priority list of locales.
+ *
  * @since 1.0
  * @extends ArrayAccess<int<0,max>,Locale>
  * @extends IteratorAggregate<Locale>

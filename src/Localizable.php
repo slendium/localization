@@ -2,10 +2,12 @@
 
 namespace Slendium\Localization;
 
-use ArrayAccess, IteratorAggregate;
+use ArrayAccess;
+use IteratorAggregate;
 
 /**
  * Provides access to the localized variants of an item.
+ *
  * @since 1.0
  * @template T
  * @extends ArrayAccess<LocaleList|Locale,?T>

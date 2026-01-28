@@ -6,9 +6,11 @@ use Stringable;
 
 /**
  * An object-oriented wrapper around RFC 4646 locale strings.
- * <p>The `__toString()`  method should be equivalent to calling `\Locale::canonicalize()`.</p>
- * @see https://www.php.net/manual/en/class.locale.php
- * @see https://www.php.net/manual/en/locale.canonicalize.php
+ *
+ * The `__toString()`  method should be equivalent to calling `\Locale::canonicalize()`.
+ *
+ * @see https://www.php.net/manual/en/class.locale.php			PHP reference for Locale.
+ * @see https://www.php.net/manual/en/locale.canonicalize.php	PHP reference for Locale::canonicalize().
  * @since 1.0
  * @author C. Fahner
  * @copyright Slendium 2025

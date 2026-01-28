@@ -2,10 +2,13 @@
 
 namespace Slendium\Localization\Base;
 
-use Iterator, LogicException, Override;
+use Iterator;
+use LogicException;
+use Override;
 
-use Slendium\Localization\{ Locale as ILocale, LocaleList, Localizable };
-use Slendium\Localization\Base\Locale;
+use Slendium\Localization\Locale as ILocale;
+use Slendium\Localization\LocaleList;
+use Slendium\Localization\Localizable;
 
 /**
  * @since 1.0

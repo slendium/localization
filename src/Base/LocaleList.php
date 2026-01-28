@@ -2,12 +2,18 @@
 
 namespace Slendium\Localization\Base;
 
-use ArrayIterator, LogicException, Override, OutOfBoundsException, Traversable;
+use ArrayIterator;
+use LogicException;
+use Override;
+use OutOfBoundsException;
+use Traversable;
 
-use Slendium\Localization\{ Locale as ILocale, LocaleList as ILocaleList };
+use Slendium\Localization\Locale as ILocale;
+use Slendium\Localization\LocaleList as ILocaleList;
 
 /**
  * An immutable list of locales.
+ *
  * @since 1.0
  * @author C. Fahner
  * @copyright Slendium 2025
