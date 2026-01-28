@@ -1,10 +1,10 @@
 {
 	"name": "slendium/localization",
-	"description": "A Slendium library handling localization.",
+	"description": "Framework-agnostic interfaces for localization.",
 	"type": "library",
 	"require-dev": {
 		"phpstan/phpstan": "^2.1",
-		"phpunit/phpunit": "^12"
+		"phpunit/phpunit": "^12.5.8"
 	},
 	"license": "MIT",
 	"autoload": { "psr-4": { "Slendium\\Localization\\": "src/" } },
