@@ -3,6 +3,7 @@
 namespace Slendium\Localization\Base;
 
 use Locale as SplLocale;
+use Stringable;
 
 use Slendium\Localization\Locale as ILocale;
 
@@ -12,6 +13,16 @@ use Slendium\Localization\Locale as ILocale;
  * @copyright Slendium 2025
  */
 class Locale implements ILocale {
+
+	/** @since 1.0 */
+	public static function fromMixed(mixed $locale): ?ILocale {
+		if ($locale instanceof ILocale) {
+			return $locale;
+		}
+		return \is_string($locale) || $locale instanceof Stringable
+			? self::parse($locale)
+			: null;
+	}
 
 	/** @since 1.0 */
 	public static function parse(string $locale): ?self {
