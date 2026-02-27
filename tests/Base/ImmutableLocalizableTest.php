@@ -2,6 +2,8 @@
 
 namespace Slendium\LocalizationTests;
 
+use Throwable;
+
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
@@ -27,6 +29,28 @@ final class ImmutableLocalizableTest extends TestCase {
 	#[DataProvider('getOffsetCases')]
 	public function test_offsetGet(ImmutableLocalizable $sut, $offset, $expected): void {
 		$this->assertSame($expected, $sut[$offset]);
+	}
+
+	public function test_offsetSet_shouldThrow(): void {
+		// Arrange
+		$sut = new ImmutableLocalizable([ ]);
+
+		// Assert
+		$this->expectException(Throwable::class);
+
+		// Act
+		$sut[new Locale('fy')] = 1;
+	}
+
+	public function test_offsetUnset_shouldThrow(): void {
+		// Arrange
+		$sut = new ImmutableLocalizable([ ]);
+
+		// Assert
+		$this->expectException(Throwable::class);
+
+		// Act
+		$sut[new Locale('fy')] = 1;
 	}
 
 	public function test_getIterator_shouldMatchConstructorIterable(): void {
