@@ -5,9 +5,11 @@ namespace Slendium\LocalizationTests;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-use Slendium\Localization\Base\{ ImmutableLocalizable, Locale, LocaleList };
+use Slendium\Localization\Base\ImmutableLocalizable;
+use Slendium\Localization\Base\Locale;
+use Slendium\Localization\Base\LocaleList;
 
-final class LocalizableTest extends TestCase {
+final class ImmutableLocalizableTest extends TestCase {
 
 	public static function getOffsetCases(): iterable {
 		$sut = ImmutableLocalizable::fromMap([ 'nl' => 1 ]);
@@ -27,11 +29,12 @@ final class LocalizableTest extends TestCase {
 		$this->assertSame($expected, $sut[$offset]);
 	}
 
-	public function test_getIterator(): void {
+	public function test_getIterator_shouldMatchConstructorIterable(): void {
 		// Arrange
 		$locale1 = new Locale('nl');
 		$locale2 = new Locale('en');
 		$sut = new ImmutableLocalizable($this->createLocaleIterable($locale1, 1, $locale2, 2));
+
 		// Act
 		$iterations = 0;
 		foreach ($sut as $locale => $value) {
@@ -43,32 +46,29 @@ final class LocalizableTest extends TestCase {
 		$this->assertSame(2, $iterations);
 	}
 
-	public function test_filter(): void {
-		// Arrange
+	public function test_filter_shouldHideNonMatchingElements(): void {
 		$sut = new ImmutableLocalizable($this->createLocaleIterable(new Locale('nl'), 1, new Locale('en'), 2));
-		// Act
+
 		$result = $sut->filter(static fn($v) => $v === 1);
-		// Assert
+
 		$this->assertSame(1, $result[new Locale('nl')]);
 		$this->assertNull($result[new Locale('en')]);
 	}
 
-	public function test_transform(): void {
-		// Arrange
+	public function test_transform_shouldApplyToEachElement(): void {
 		$sut = new ImmutableLocalizable($this->createLocaleIterable(new Locale('nl'), 1, new Locale('en'), 2));
-		// Act
+
 		$result = $sut->transform(static fn($v) => $v*2);
-		// Assert
+
 		$this->assertSame(2, $result[new Locale('nl')]);
 		$this->assertSame(4, $result[new Locale('en')]);
 	}
 
-	public function test_withFallback(): void {
-		// Arrange
+	public function test_withFallback_shouldCreateNewLocalizableWithGivenFallback(): void {
 		$sut = new ImmutableLocalizable([ ]);
-		// Act
+
 		$result = $sut->withFallback(1);
-		// Assert
+
 		$this->assertNull($sut->fallback);
 		$this->assertSame(1, $result->fallback);
 		$this->assertNotSame($sut, $result);
