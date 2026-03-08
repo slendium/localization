@@ -11,6 +11,11 @@ use Slendium\Localization\Base\ImmutableLocalizable;
 use Slendium\Localization\Base\Locale;
 use Slendium\Localization\Base\LocaleList;
 
+/**
+ * @internal
+ * @author C. Fahner
+ * @copyright Slendium 2025-2026
+ */
 final class ImmutableLocalizableTest extends TestCase {
 
 	public static function getOffsetCases(): iterable {
@@ -32,24 +37,18 @@ final class ImmutableLocalizableTest extends TestCase {
 	}
 
 	public function test_offsetSet_shouldThrow(): void {
-		// Arrange
 		$sut = new ImmutableLocalizable([ ]);
 
-		// Assert
 		$this->expectException(Throwable::class);
 
-		// Act
 		$sut[new Locale('fy')] = 1;
 	}
 
 	public function test_offsetUnset_shouldThrow(): void {
-		// Arrange
 		$sut = new ImmutableLocalizable([ ]);
 
-		// Assert
 		$this->expectException(Throwable::class);
 
-		// Act
 		$sut[new Locale('fy')] = 1;
 	}
 
