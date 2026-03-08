@@ -15,15 +15,12 @@ use Slendium\Localization\Localizable;
  * @template T
  * @implements Localizable<T>
  * @author C. Fahner
- * @copyright Slendium 2025
+ * @copyright Slendium 2025-2026
  */
 final class ImmutableLocalizable implements Localizable {
 
-	/** @var array<non-empty-string,ILocale> */
-	private readonly array $keyMap;
-
-	/** @var array<non-empty-string,T> */
-	private readonly array $valueMap;
+	/** @var LocaleMap<T> */
+	private readonly LocaleMap $map;
 
 	/**
 	 * @since 1.0
@@ -60,16 +57,7 @@ final class ImmutableLocalizable implements Localizable {
 		public readonly mixed $fallback = null,
 
 	) {
-		$keyMap = [ ];
-		$valueMap = [ ];
-		foreach ($values as $locale => $value) {
-			if (($key = (string)$locale) !== '') {
-				$keyMap[$key] = $locale;
-				$valueMap[$key] = $value;
-			}
-		}
-		$this->keyMap = $keyMap;
-		$this->valueMap = $valueMap;
+		$this->map = new LocaleMap($values);
 	}
 
 	#[Override]
@@ -78,7 +66,7 @@ final class ImmutableLocalizable implements Localizable {
 			$offset = [ $offset ];
 		}
 		foreach ($offset as $locale) {
-			if (isset($this->valueMap[(string)$locale])) {
+			if (isset($this->map[$locale])) {
 				return true;
 			}
 		}
@@ -91,9 +79,8 @@ final class ImmutableLocalizable implements Localizable {
 			$offset = [ $offset ];
 		}
 		foreach ($offset as $locale) {
-			$locale = (string)$locale;
-			if (isset($this->valueMap[$locale])) {
-				return $this->valueMap[$locale];
+			if (isset($this->map[$locale])) {
+				return $this->map[$locale];
 			}
 		}
 		return null;
@@ -111,20 +98,13 @@ final class ImmutableLocalizable implements Localizable {
 
 	#[Override]
 	public function getIterator(): Iterator {
-		return $this->getGenerator();
+		yield from $this->map;
 	}
 
 	/** @return self<T> */
 	#[Override]
 	public function withFallback(mixed $fallback): self {
-		return new self($this->getGenerator(), $fallback);
-	}
-
-	/** @return Iterator<ILocale,T> */
-	private function getGenerator(): Iterator {
-		foreach ($this->valueMap as $key => $value) {
-			yield $this->keyMap[$key] => $value;
-		}
+		return new self($this->map, $fallback);
 	}
 
 }
