@@ -116,22 +116,6 @@ final class ImmutableLocalizable implements Localizable {
 
 	/** @return self<T> */
 	#[Override]
-	public function filter(callable $predicate): self {
-		return new self($this->filterValues($predicate), $this->fallback);
-	}
-
-	/**
-	 * @template TOut
-	 * @param callable(T,ILocale):TOut $transform
-	 * @return self<TOut>
-	 */
-	#[Override]
-	public function transform(callable $transform): self {
-		return new self($this->transformValues($transform), $this->fallback);
-	}
-
-	/** @return self<T> */
-	#[Override]
 	public function withFallback(mixed $fallback): self {
 		return new self($this->getGenerator(), $fallback);
 	}
@@ -140,29 +124,6 @@ final class ImmutableLocalizable implements Localizable {
 	private function getGenerator(): Iterator {
 		foreach ($this->valueMap as $key => $value) {
 			yield $this->keyMap[$key] => $value;
-		}
-	}
-
-	/**
-	 * @param callable(T,ILocale):bool $predicate
-	 * @return Iterator<ILocale,T>
-	 */
-	private function filterValues(callable $predicate): Iterator {
-		foreach ($this->getGenerator() as $locale => $value) {
-			if ($predicate($value, $locale)) {
-				yield $locale => $value;
-			}
-		}
-	}
-
-	/**
-	 * @template TOut
-	 * @param callable(T,ILocale):TOut $transform
-	 * @return Iterator<ILocale,TOut>
-	 */
-	private function transformValues(callable $transform): Iterator {
-		foreach ($this->getGenerator() as $locale => $value) {
-			yield $locale => $transform($value, $locale);
 		}
 	}
 

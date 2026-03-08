@@ -70,24 +70,6 @@ final class ImmutableLocalizableTest extends TestCase {
 		$this->assertSame(2, $iterations);
 	}
 
-	public function test_filter_shouldHideNonMatchingElements(): void {
-		$sut = new ImmutableLocalizable($this->createLocaleIterable(new Locale('nl'), 1, new Locale('en'), 2));
-
-		$result = $sut->filter(static fn($v) => $v === 1);
-
-		$this->assertSame(1, $result[new Locale('nl')]);
-		$this->assertNull($result[new Locale('en')]);
-	}
-
-	public function test_transform_shouldApplyToEachElement(): void {
-		$sut = new ImmutableLocalizable($this->createLocaleIterable(new Locale('nl'), 1, new Locale('en'), 2));
-
-		$result = $sut->transform(static fn($v) => $v*2);
-
-		$this->assertSame(2, $result[new Locale('nl')]);
-		$this->assertSame(4, $result[new Locale('en')]);
-	}
-
 	public function test_withFallback_shouldCreateNewLocalizableWithGivenFallback(): void {
 		$sut = new ImmutableLocalizable([ ]);
 
