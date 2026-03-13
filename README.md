@@ -1,4 +1,4 @@
-# Localization
+# Slendium/Localization
 
 A framework-agnostic PHP library for localization. Includes:
 
